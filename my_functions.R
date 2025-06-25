@@ -210,7 +210,7 @@ dotplt.enriched <- function(data = data, x = "group", y = "Description", size = 
     p <- ggplot(data = data, aes(x = .data[[x]], y = .data[[y]])) + 
   geom_point(aes(size = .data[[size]], color = .data[[color]])) +
   scale_color_gradient(low='#bc4749', high='#a7c957')+  theme_bw() +
-  theme(axis.text = element_text(size = 12, color = "black")) + ggtitle(title) + xlab(NULL) + ylab("Pathways") + scale_size(range = c(4,7)) + 
+  theme(axis.text = element_text(size = 12, color = "black")) + ggtitle(title) + xlab(NULL) + ylab("Pathways") + scale_size(range = c(3,8)) + 
     theme(axis.text = element_text(size = 14), 
           axis.text.x = element_text(angle = 30, hjust = 1), 
           plot.title = element_text(size = 16, hjust = 0.5, face = "bold"),
