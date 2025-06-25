@@ -216,7 +216,8 @@ dotplt.enriched <- function(data = data, x = "group", y = "Description", size = 
           plot.title = element_text(size = 16, hjust = 0.5, face = "bold"),
           legend.text = element_text(size = 12), 
           legend.title = element_text(size = 14)
-          ) + 
-        scale_color_gradient(low = "#DF3A01", high = "#F6D8CE");
+          ) 
+    # + 
+    #     scale_color_gradient(low = "#DF3A01", high = "#F6D8CE");
     return(p)
 }
