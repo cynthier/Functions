@@ -1,3 +1,26 @@
+seurat2h5ad <- function(obj, subname){ 
+    library(SeuratData)
+    library(SeuratDisk)
+    library(Seurat)
+    obj[["RNA3"]] <- as(object = obj[["RNA"]], Class = "Assay")
+    DefaultAssay(obj) <- "RNA3"
+    obj[["RNA"]] <- NULL
+    obj <- RenameAssays(object = obj, RNA3 = 'RNA')
+    temp.file <- paste0(subname, ".h5Seurat")
+    SaveH5Seurat(obj, file = temp.file, overwrite = TRUE)
+    Convert(paste0(subname, ".h5Seurat"), dest = "h5ad", overwrite = TRUE) 
+    if (file.exists(temp.file)) {
+          file.remove(temp.file)
+          cat(paste0("deleted", temp.file))
+        } else {
+          cat("No file found")
+        }
+}
+
+
+
+
+
 
 plot_gene_trend <- function(plot.data, pseudotime = "pseudotime", group_by = "group_by", genes = NULL, title = NULL){ 
     library(ggplot2)
