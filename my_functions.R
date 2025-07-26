@@ -1,3 +1,41 @@
+loom2seurat <- function(path_Data, subname){ 
+    library(loomR)
+    library(SeuratDisk)
+    library(SeuratData)
+    library(Seurat)
+    data <- Connect(path_data, mode = "r") 
+    obj  <- as.Seurat(data)
+    
+   saveRDS(obj, file = paste0(subname, ".rds"))
+}
+
+
+loom2h5ad <- function(path_Data, subname){ 
+    library(loomR)
+    library(SeuratDisk)
+    library(SeuratData)
+    library(Seurat)
+    data <- Connect(path_data, mode = "r") 
+    obj  <- as.Seurat(data)
+    
+    obj[["RNA3"]] <- as(object = obj[["RNA"]], Class = "Assay")
+    DefaultAssay(obj) <- "RNA3"
+    obj[["RNA"]] <- NULL
+    obj <- RenameAssays(object = obj, RNA3 = 'RNA')
+    temp.file <- paste0(subname, ".h5Seurat")
+    SaveH5Seurat(obj, file = temp.file, overwrite = TRUE)
+    Convert(paste0(subname, ".h5Seurat"), 
+            dest = "h5ad", 
+            overwrite = TRUE) 
+    if (file.exists(temp.file)) {
+      file.remove(temp.file)
+      cat(paste0("deleted", temp.file))
+    } else {
+      cat("No file found")
+    }
+}
+
+
 seurat2h5ad <- function(obj, subname){ 
     library(SeuratData)
     library(SeuratDisk)
@@ -16,9 +54,6 @@ seurat2h5ad <- function(obj, subname){
           cat("No file found")
         }
 }
-
-
-
 
 
 
